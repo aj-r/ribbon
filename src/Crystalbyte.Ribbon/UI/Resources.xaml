@@ -2,9 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:input="clr-namespace:System.Windows.Input;assembly=PresentationCore"
                     xmlns:properties="clr-namespace:Crystalbyte.Properties"
+                    xmlns:converters="clr-namespace:Crystalbyte.Converters"
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:ui="clr-namespace:Crystalbyte.UI">
 
+    <converters:BitmapColorConverter x:Key="BitmapColorConverter" />
 
     <!--  Sky Blue  -->
     <!--
@@ -90,6 +92,13 @@
 
     <Thickness x:Key="{ComponentResourceKey TypeInTargetAssembly=ui:RibbonWindow, ResourceId=HeaderPadding}">12,4,12,4</Thickness>
 
+    <BitmapImage x:Key="CloseButtonSource" UriSource="/Crystalbyte.Ribbon;component/Assets/close.png" />
+    <BitmapImage x:Key="MaximizeButtonSource" UriSource="/Crystalbyte.Ribbon;component/Assets/maximize.png" />
+    <BitmapImage x:Key="RestoreDownButtonSource" UriSource="/Crystalbyte.Ribbon;component/Assets/restore.png" />
+    <BitmapImage x:Key="MinimizeButtonSource" UriSource="/Crystalbyte.Ribbon;component/Assets/minimize.png" />
+    <BitmapImage x:Key="HelpButtonSource" UriSource="/Crystalbyte.Ribbon;component/Assets/help.png" />
+    <BitmapImage x:Key="RibbonOptionsButtonSource" UriSource="/Crystalbyte.Ribbon;component/Assets/ribbon.png" />
+
     <Style x:Key="{ComponentResourceKey TypeInTargetAssembly=ui:RibbonWindow, ResourceId=WindowTitleStyle}" TargetType="TextBlock">
         <Setter Property="FontSize" Value="14" />
     </Style>
@@ -165,7 +174,7 @@
                            Height="10"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Source="/Crystalbyte.Ribbon;component/Assets/restore.png"
+                           Source="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=ui:RibbonWindow, AncestorLevel=1}, Converter={StaticResource BitmapColorConverter}, ConverterParameter={StaticResource RestoreDownButtonSource}}"
                            Stretch="Uniform" />
                 </DataTemplate>
             </Setter.Value>
@@ -185,8 +194,9 @@
                            Height="10"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Source="/Crystalbyte.Ribbon;component/Assets/close.png"
-                           Stretch="Uniform" />
+                           Source="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=ui:RibbonWindow, AncestorLevel=1}, Converter={StaticResource BitmapColorConverter}, ConverterParameter={StaticResource CloseButtonSource}}"
+                           Stretch="Uniform">
+                    </Image>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -203,7 +213,7 @@
                     <Image Height="10"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Source="/Crystalbyte.Ribbon;component/Assets/help.png"
+                           Source="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=ui:RibbonWindow, AncestorLevel=1}, Converter={StaticResource BitmapColorConverter}, ConverterParameter={StaticResource HelpButtonSource}}"
                            Stretch="Uniform" />
                 </DataTemplate>
             </Setter.Value>
@@ -260,7 +270,8 @@
                            Height="10"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Source="/Crystalbyte.Ribbon;component/Assets/minimize.png" />
+                           Source="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=ui:RibbonWindow, AncestorLevel=1}, Converter={StaticResource BitmapColorConverter}, ConverterParameter={StaticResource MinimizeButtonSource}}"
+                           />
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -279,7 +290,7 @@
                            Height="10"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Source="/Crystalbyte.Ribbon;component/Assets/maximize.png"
+                           Source="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=ui:RibbonWindow, AncestorLevel=1}, Converter={StaticResource BitmapColorConverter}, ConverterParameter={StaticResource MaximizeButtonSource}}"
                            Stretch="Uniform" />
                 </DataTemplate>
             </Setter.Value>
@@ -298,7 +309,7 @@
                     <Image Height="10"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Source="/Crystalbyte.Ribbon;component/Assets/ribbon.png"
+                           Source="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=ui:RibbonWindow, AncestorLevel=1}, Converter={StaticResource BitmapColorConverter}, ConverterParameter={StaticResource RibbonOptionsButtonSource}}"
                            Stretch="Uniform" />
                 </DataTemplate>
             </Setter.Value>

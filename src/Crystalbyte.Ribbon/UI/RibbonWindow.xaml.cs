@@ -12,12 +12,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
+using Crystalbyte.Converters;
 
 #endregion
 
@@ -484,26 +486,46 @@ namespace Crystalbyte.UI {
 
             _ribbonOptionsList = (ListView)Template.FindName(RibbonOptionsListName, this);
             _ribbonOptionsList.SelectionChanged += OnRibbonOptionSelectionChanged;
-            _ribbonOptionsList.Items.AddRange(new[] {
-                new RibbonOption {
-                    Title = Properties.Resources.AutoHideRibbonTitle, 
-                    Description = Properties.Resources.AutoHideRibbonDescription,
-                    Visibility = RibbonState.Hidden,
-                    ImageSource = new BitmapImage(new Uri("/Crystalbyte.Ribbon;component/Assets/autohide.png", UriKind.Relative))
-                },
-                new RibbonOption {
-                    Title = Properties.Resources.ShowTabsTitle, 
-                    Description = Properties.Resources.ShowTabsDescription,
-                    Visibility = RibbonState.Tabs,
-                    ImageSource = new BitmapImage(new Uri("/Crystalbyte.Ribbon;component/Assets/show.tabs.png", UriKind.Relative))
-                },
-                new RibbonOption {
-                    Title = Properties.Resources.ShowTabsAndCommandsTitle, 
-                    Description = Properties.Resources.ShowTabsAndCommandsDescription,
-                    Visibility = RibbonState.TabsAndCommands,
-                    ImageSource = new BitmapImage(new Uri("/Crystalbyte.Ribbon;component/Assets/show.tabs.commands.png", UriKind.Relative))
-                }
+
+            var autoHideOption = new RibbonOption
+            {
+                Title = Properties.Resources.AutoHideRibbonTitle,
+                Description = Properties.Resources.AutoHideRibbonDescription,
+                Visibility = RibbonState.Hidden,
+                //ImageSource = new BitmapImage(new Uri("/Crystalbyte.Ribbon;component/Assets/autohide.png", UriKind.Relative))
+            };
+            BindingOperations.SetBinding(autoHideOption, RibbonOption.ImageSourceProperty, new Binding("Foreground") {
+                Source = this,
+                Converter = new BitmapColorConverter(),
+                ConverterParameter = new BitmapImage(new Uri("pack://application:,,,/Crystalbyte.Ribbon;component/Assets/autohide.png"))
             });
+            var showTabsOption = new RibbonOption
+            {
+                Title = Properties.Resources.ShowTabsTitle,
+                Description = Properties.Resources.ShowTabsDescription,
+                Visibility = RibbonState.Tabs,
+            };
+            BindingOperations.SetBinding(showTabsOption, RibbonOption.ImageSourceProperty, new Binding("Foreground")
+            {
+                Source = this,
+                //RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(RibbonWindow), 1),
+                Converter = new BitmapColorConverter(),
+                ConverterParameter = new BitmapImage(new Uri("pack://application:,,,/Crystalbyte.Ribbon;component/Assets/show.tabs.png"))
+            });
+            var showTabsCommandsOption = new RibbonOption
+            {
+                Title = Properties.Resources.ShowTabsAndCommandsTitle,
+                Description = Properties.Resources.ShowTabsAndCommandsDescription,
+                Visibility = RibbonState.TabsAndCommands,
+            };
+            BindingOperations.SetBinding(showTabsCommandsOption, RibbonOption.ImageSourceProperty, new Binding("Foreground")
+            {
+                Source = this,
+                //RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(RibbonWindow), 1),
+                Converter = new BitmapColorConverter(),
+                ConverterParameter = new BitmapImage(new Uri("pack://application:,,,/Crystalbyte.Ribbon;component/Assets/show.tabs.commands.png"))
+            });
+            _ribbonOptionsList.Items.AddRange(new[] { autoHideOption, showTabsOption, showTabsCommandsOption });
 
             _appMenuHost = (Grid)Template.FindName(ApplicationMenuHostName, this);
 

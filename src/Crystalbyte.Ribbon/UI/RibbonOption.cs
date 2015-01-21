@@ -1,36 +1,35 @@
 ﻿#region Using directives
 
+using System.Windows;
 using System.Windows.Media;
 
 #endregion
 
 namespace Crystalbyte.UI {
-    public sealed class RibbonOption : NotificationObject {
+    public sealed class RibbonOption : DependencyObject {
 
-        #region Private Fields
+        public static DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(RibbonOption));
 
-        private bool _isSelected;
+        public string Title {
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
 
-        #endregion
-
-        public string Title { get; set; }
+        public static DependencyProperty IsSelectedProperty = DependencyProperty.Register("IsSelected", typeof(bool), typeof(RibbonOption));
 
         public bool IsSelected {
-            get { return _isSelected; }
-            set {
-                if (_isSelected == value) {
-                    return;
-                }
-
-                RaisePropertyChanging(() => IsSelected);
-                _isSelected = value;
-                RaisePropertyChanged(() => IsSelected);
-            }
+            get { return (bool)GetValue(IsSelectedProperty); }
+            set { SetValue(IsSelectedProperty, value); }
         }
 
         public string Description { get; set; }
 
-        public ImageSource ImageSource { get; set; }
+        public static DependencyProperty ImageSourceProperty = DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(RibbonOption));
+
+        public ImageSource ImageSource {
+            get { return (ImageSource)GetValue(ImageSourceProperty); }
+            set { SetValue(ImageSourceProperty, value); }
+        }
 
         public RibbonState Visibility { get; set; }
     }
