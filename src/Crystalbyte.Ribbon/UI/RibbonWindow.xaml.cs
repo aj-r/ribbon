@@ -492,7 +492,6 @@ namespace Crystalbyte.UI {
                 Title = Properties.Resources.AutoHideRibbonTitle,
                 Description = Properties.Resources.AutoHideRibbonDescription,
                 Visibility = RibbonState.Hidden,
-                //ImageSource = new BitmapImage(new Uri("/Crystalbyte.Ribbon;component/Assets/autohide.png", UriKind.Relative))
             };
             BindingOperations.SetBinding(autoHideOption, RibbonOption.ImageSourceProperty, new Binding("Foreground") {
                 Source = this,
@@ -508,7 +507,6 @@ namespace Crystalbyte.UI {
             BindingOperations.SetBinding(showTabsOption, RibbonOption.ImageSourceProperty, new Binding("Foreground")
             {
                 Source = this,
-                //RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(RibbonWindow), 1),
                 Converter = new BitmapColorConverter(),
                 ConverterParameter = new BitmapImage(new Uri("pack://application:,,,/Crystalbyte.Ribbon;component/Assets/show.tabs.png"))
             });
@@ -521,7 +519,6 @@ namespace Crystalbyte.UI {
             BindingOperations.SetBinding(showTabsCommandsOption, RibbonOption.ImageSourceProperty, new Binding("Foreground")
             {
                 Source = this,
-                //RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(RibbonWindow), 1),
                 Converter = new BitmapColorConverter(),
                 ConverterParameter = new BitmapImage(new Uri("pack://application:,,,/Crystalbyte.Ribbon;component/Assets/show.tabs.commands.png"))
             });
